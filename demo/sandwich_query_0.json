@@ -1,0 +1,36 @@
+{
+    "query": "What toppings are applied on the bread?",
+    "start_time": 10,
+    "detections": [
+        14.599999999999984,
+        17.799999999999972,
+        25.199999999999946,
+        26.39999999999994,
+        33.99999999999995
+    ],
+    "ground_truth_times": [
+        22
+    ],
+    "checked_detections": [
+        {
+            "time": 14.599999999999984,
+            "response": "A green spread and a white cream are added on the bread."
+        },
+        {
+            "time": 17.799999999999972,
+            "response": "A green herb spread is added on the bread slices."
+        },
+        {
+            "time": 25.199999999999946,
+            "response": "A hand spreads green lettuce leaves and then places slices of yellow cheese on the white bread."
+        },
+        {
+            "time": 26.39999999999994,
+            "response": "A hand uses a wooden pepper grinder to season the bread with black pepper."
+        },
+        {
+            "time": 33.99999999999995,
+            "response": "A hand places slices of cheese on the lettuce-covered bread."
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "task_name":"Anomaly Detection",
+    "description":"Identify unusual, dangerous or violent events in the video",
+    "example_question_format": ["Tell me when there is an emergency", "Tell me when something dangerous happens", "Tell me when there is a violent event"],
+    "generation_guideline":"Your question should be based on an unusual, dangerous, or violent event in the video. The query time should be BEFORE the anomaly occurs. The anomaly should be clearly distinguishable from normal events and relevant to the context of the video. DO NOT directly name the anomaly in the question; instead, use general terms like 'emergency', 'dangerous', or 'violent event'."
+}

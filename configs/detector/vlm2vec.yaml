@@ -1,0 +1,5 @@
+model_args:
+  model_name: VLM2Vec/VLM2Vec-V2.0
+  pooling: last
+  normalize: true
+  model_backbone: qwen2_vl

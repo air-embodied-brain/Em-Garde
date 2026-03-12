@@ -1,0 +1,9 @@
+video_path: "assets/cat.mp4"
+
+queries:
+  - text: "Tell me when my steak is eaten by my cat!"
+    query_time: 5
+    response_time: []
+
+start_time: 5
+end_time: 40

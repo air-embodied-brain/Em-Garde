@@ -1,0 +1,9 @@
+video_path: "assets/solution.mp4"
+
+queries:
+  - text: "What are the steps to make the solution?"
+    query_time: 10
+    response_time: [14,35,40,48]
+
+start_time: 10
+end_time: 50

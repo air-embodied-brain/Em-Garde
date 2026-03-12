@@ -1,0 +1,9 @@
+video_path: "assets/sandwich.mp4"
+
+queries:
+  - text: "What toppings are applied on the bread?"
+    query_time: 10
+    response_time: [22]
+
+start_time: 10
+end_time: 40

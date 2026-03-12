@@ -1,0 +1,9 @@
+video_path: "assets/magazine.mp4"
+
+queries:
+  - text: "What's the name of the magazine the man take from the rack?"
+    query_time: 10
+    response_time: [31]
+
+start_time: 10
+end_time: 35
