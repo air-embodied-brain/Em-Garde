@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Em-Garde: A Propose-Match Framework for Proactive Streaming Video Understanding</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero">
+    <h1>Em-Garde: A Propose-Match Framework for Proactive Streaming Video Understanding</h1>
+    <div class="buttons">
+        <a class="btn" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">arXiv</a>
+        <a class="btn" href="https://github.com/yourusername/yourrepo" target="_blank">GitHub</a>
+        <a class="btn" href="https://huggingface.co/fredzheng/Em-Garde-7B" target="_blank">Hugging Face</a>
+    </div>
+</section>
+
+<!-- TL;DR Section -->
+<section class="tldr-section">
+    <h2>TL;DR 🚀</h2>
+    <div class="tldr-cards">
+        <div class="tldr-card">
+            <h3>Problem</h3>
+            <p>We tackle real-time proactive streaming video understanding problem.</p>
+        </div>
+        <div class="tldr-card">
+            <h3>Solution</h3>
+            <p>We proposed a novel two-stage framework to achieve efficient and generalizable triggering decisions for proactive responses.</p>
+        </div>
+        <div class="tldr-card">
+            <h3>Impact</h3>
+            <p>Enables fast, accurate proactive interactions in live video analytics, surveillence, and Embodied AI Assistant.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- Video Demo -->
+<section class="video-section">
+    <h2>Video Demo</h2>
+    <video controls autoplay muted loop>
+        <source src="video_demo.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+</section>
+
+<!-- Abstract Section -->
+<section class="abstract-section">
+    <h2>Abstract</h2>
+    <p>
+        Recent advances in Streaming Video Understanding has enabled a new interaction paradigm where models respond proactively to user queries. Current proactive VideoLLMs rely on per-frame triggering decision making, which suffers from an efficiency-accuracy dilemma. We propose Em-Garde, a novel framework that decouples semantic understanding from streaming perception. At query time, the Instruction-Guided Proposal Parser transforms user queries into structured, perceptually grounded visual proposals; during streaming, a Lightweight Proposal Matching Module performs efficient embedding-based matching to trigger responses. Experiments on StreamingBench and OVO-Bench demonstrate consistent improvements over prior models in proactive response accuracy and efficiency, validating an effective solution for proactive video understanding under strict computational constraints.
+    </p>
+</section>
+
+<!-- Paper Sections -->
+<section class="paper-section-container">
+    <section class="method-section">
+        <h2>Method</h2>
+        <div class="method-cards">
+            <div class="method-card">
+                <img src="assets/teaser.png" alt="Figure 1">
+                <p>
+                    Unlike former Proactive Streaming VideoLLMs which makes triggering decisions from scratch at every timestep, Em-Garde decouples semantic understanding from streaming perception, and extracts heavy instruction-related reasoning out of the streaming loop, enabling efficient and generalizable triggering decisions for proactive responses.
+                </p>
+            </div>
+            <div class="method-card">
+                <img src="assets/scheme.png" alt="Figure 2">
+                <p>
+                    Em-Garde consists of two stages: 1) Instruction-Guided Proposal Parser, which transforms user queries into structured, perceptually grounded visual proposals; 2) Lightweight Proposal Matching Module, which performs efficient embedding-based matching to trigger responses during streaming.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experiment Section -->
+    <section class="experiment-section">
+        <h2>Experiments</h2>
+        <iframe src="sections/results.html"></iframe>
+    </section>
+    
+    <!-- Citation Section -->
+    <section class="citation-section">
+        <h2>Citations</h2>
+        <p>[1] Placeholder for arXiv / paper references.</p>
+    </section>
+</section>
+
+<footer>
+    <p>© 2026 Your Name</p>
+</footer>
+
+</body>
+</html>

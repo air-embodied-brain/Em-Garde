@@ -1,0 +1,256 @@
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    scroll-behavior: smooth;
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background: linear-gradient(135deg, #0055a5, #00aaff);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+.buttons .btn {
+    display: inline-block;
+    margin: 5px 10px;
+    padding: 12px 25px;
+    background-color: white;
+    color: #0055a5;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.buttons .btn:hover {
+    background-color: #e0f7ff;
+}
+
+/* TL;DR Section */
+.tldr-section {
+    padding: 60px 20px;
+    background-color: #00aaff33;
+    text-align: center;
+}
+
+.tldr-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.tldr-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tldr-card {
+    background: white;
+    border-left: 6px solid #0055a5;
+    padding: 20px;
+    width: 250px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tldr-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.tldr-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #0055a5;
+}
+
+/* Abstract Section */
+.abstract-section {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    max-width: 800px;
+    margin: auto;
+    text-align: left;
+}
+
+.abstract-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.abstract-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Video Section */
+.video-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.video-section video {
+    max-width: 80%;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Paper Sections */
+.paper-section-container {
+    padding: 60px 20px;
+    background-color: #f0f4f8;
+    text-align: center;
+}
+
+.paper-section-container h2 {
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+.paper-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.paper-card {
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.paper-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.paper-card iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+    border-radius: 8px;
+}
+
+/* Footer */
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #222;
+    color: white;
+}
+
+/* Method Section */
+.method-section {
+    padding: 60px 20px;
+    background-color: #f0f4f8;
+    text-align: center;
+}
+
+.method-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.method-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.method-card {
+    background-color: white;
+    width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.method-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.method-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Experiment Section */
+.experiment-section {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    max-width: 900px;
+    margin: auto;
+}
+
+.experiment-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.experiment-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.experiment-section th, .experiment-section td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.experiment-section th {
+    background-color: #0055a5;
+    color: white;
+    font-weight: bold;
+}
+
+/* Citation Section */
+.citation-section {
+    padding: 40px 20px;
+    background-color: #f0f4f8;
+    text-align: center;
+}
+
+.citation-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.citation-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
