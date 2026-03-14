@@ -13,19 +13,23 @@
 
 <!-- Hero -->
 <section class="hero">
-    <h1>Em-Garde: A Propose-Match Framework for Proactive Streaming Video Understanding</h1>
+    <h1>Em-Garde: A <span class="clr-propose">Propose</span>-<span class="clr-match">Match</span> Framework for Proactive Streaming Video Understanding</h1>
     <p class="authors">
-        Author 1<sup>1</sup>, Author 2<sup>1</sup>, Author 3<sup>2</sup>
+        Yikai Zheng<sup>1,2</sup>, Xin Ding<sup>3</sup>, Yifan Yang<sup>5</sup>, Shiqi Jiang<sup>5</sup>, Hao Wu<sup>4</sup>, Qianxi Zhang<sup>5</sup>, Weijun Wang<sup>1</sup>, Ting Cao<sup>1</sup>, Yunxin Liu<sup>1</sup>
     </p>
     <p class="affiliations">
-        <sup>1</sup>Institution A &nbsp;&nbsp; <sup>2</sup>Institution B
+        <sup>1</sup>Institute for AI Industry Research (AIR), Tsinghua University &nbsp;&nbsp;
+        <sup>2</sup>Institute for Interdisciplinary Information Sciences (IIIS), Tsinghua University<br>
+        <sup>3</sup>University of Science and Technology of China &nbsp;&nbsp;
+        <sup>4</sup>Nanjing University &nbsp;&nbsp;
+        <sup>5</sup>Microsoft Research Asia
     </p>
     <div class="buttons">
         <a class="btn" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zm-3 9h4v2h-4v-2zm0 4h4v2h-4v-2zm-2-4h1v2H8v-2zm0 4h1v2H8v-2z"/></svg>
             Paper
         </a>
-        <a class="btn" href="https://github.com/yourusername/yourrepo" target="_blank">
+        <a class="btn" href="https://github.com/yikaizheng/Em-Garde" target="_blank">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
             Code
         </a>
@@ -38,20 +42,11 @@
 <!-- TL;DR -->
 <section class="tldr-section">
     <h2>TL;DR</h2>
-    <div class="tldr-cards">
-        <div class="tldr-card">
-            <h3>Problem</h3>
-            <p>Real-time proactive streaming video understanding requires per-frame triggering decisions, suffering from an efficiency-accuracy dilemma.</p>
-        </div>
-        <div class="tldr-card">
-            <h3>Solution</h3>
-            <p>Em-Garde decouples semantic understanding from streaming perception via a two-stage propose-then-match framework.</p>
-        </div>
-        <div class="tldr-card">
-            <h3>Impact</h3>
-            <p>Enables fast, accurate proactive interactions in live video analytics, surveillance, and embodied AI assistants.</p>
-        </div>
-    </div>
+    <ul class="tldr-list">
+        <li><span class="tldr-label">Problem</span> Proactive streaming video understanding requires per-frame triggering decisions, facing an efficiency-accuracy dilemma.</li>
+        <li><span class="tldr-label">Solution</span> <strong>Em-Garde</strong> decouples semantic understanding from streaming perception via a <span class="clr-propose">propose</span>-then-<span class="clr-match">match</span> framework.</li>
+        <li><span class="tldr-label">Impact</span> Fast, accurate proactive interactions for live video analytics, surveillance, and embodied AI.</li>
+    </ul>
 </section>
 
 <!-- Video Demo -->
@@ -68,7 +63,7 @@
     <div class="container">
         <h2>Abstract</h2>
         <p>
-            Recent advances in Streaming Video Understanding has enabled a new interaction paradigm where models respond proactively to user queries. Current proactive VideoLLMs rely on per-frame triggering decision making, which suffers from an efficiency-accuracy dilemma. We propose Em-Garde, a novel framework that decouples semantic understanding from streaming perception. At query time, the Instruction-Guided Proposal Parser transforms user queries into structured, perceptually grounded visual proposals; during streaming, a Lightweight Proposal Matching Module performs efficient embedding-based matching to trigger responses. Experiments on StreamingBench and OVO-Bench demonstrate consistent improvements over prior models in proactive response accuracy and efficiency, validating an effective solution for proactive video understanding under strict computational constraints.
+            Recent advances in Streaming Video Understanding has enabled a new interaction paradigm where models respond proactively to user queries. Current proactive VideoLLMs rely on per-frame triggering decision making, which suffers from an <strong>efficiency-accuracy dilemma</strong>. We propose <strong>Em-Garde</strong>, a novel framework that decouples semantic understanding from streaming perception. At query time, the <span class="clr-propose"><strong>Instruction-Guided Proposal Parser (IGPP)</strong></span> transforms user queries into structured, perceptually grounded visual proposals; during streaming, a <span class="clr-match"><strong>Lightweight Proposal Matching Module (LPMM)</strong></span> performs efficient embedding-based matching to trigger responses. Experiments on StreamingBench and OVO-Bench demonstrate consistent improvements over prior models in proactive response accuracy and efficiency, validating an effective solution for proactive video understanding under strict computational constraints.
         </p>
     </div>
 </section>
@@ -78,15 +73,15 @@
     <h2>Method</h2>
     <div class="method-cards">
         <div class="method-card">
-            <img src="assets/teaser.png" alt="Teaser figure showing Em-Garde's approach">
+            <img src="assets/teaser.jpg" alt="Teaser figure showing Em-Garde's approach">
             <p class="caption">
-                Unlike former Proactive Streaming VideoLLMs which make triggering decisions from scratch at every timestep, Em-Garde decouples semantic understanding from streaming perception, and extracts heavy instruction-related reasoning out of the streaming loop, enabling efficient and generalizable triggering decisions for proactive responses.
+                Unlike former Proactive Streaming VideoLLMs which make triggering decisions from scratch at every timestep, <strong>Em-Garde</strong> decouples semantic understanding from streaming perception, and extracts heavy instruction-related reasoning out of the streaming loop, enabling efficient and generalizable triggering decisions for proactive responses.
             </p>
         </div>
         <div class="method-card">
-            <img src="assets/scheme.png" alt="Em-Garde framework overview">
+            <img src="assets/scheme.jpg" alt="Em-Garde framework overview">
             <p class="caption">
-                Em-Garde consists of two stages: (1) an Instruction-Guided Proposal Parser that transforms user queries into structured, perceptually grounded visual proposals; and (2) a Lightweight Proposal Matching Module that performs efficient embedding-based matching to trigger responses during streaming.
+                <strong>Em-Garde</strong> consists of two stages: (1) the <span class="clr-propose"><strong>Instruction-Guided Proposal Parser (IGPP)</strong></span> transforms user queries into structured, perceptually grounded visual proposals; and (2) the <span class="clr-match"><strong>Lightweight Proposal Matching Module (LPMM)</strong></span> performs efficient embedding-based matching to trigger responses during streaming.
             </p>
         </div>
     </div>
@@ -96,7 +91,34 @@
 <section class="experiment-section">
     <div class="container">
         <h2>Experiments</h2>
-        <div class="experiment-placeholder">Coming soon.</div>
+
+        <!-- Proactive Results -->
+        <div class="experiment-block">
+            <h3>Proactive Response Results</h3>
+            <p><strong>Em-Garde</strong> achieves superior proactive response abilities across all three benchmarks, outperforming prior streaming VideoLLMs by a significant margin. The <span class="clr-propose">propose</span>-then-<span class="clr-match">match</span> design enables accurate, timely triggering without per-frame LLM inference.</p>
+            <div class="experiment-charts">
+                <img src="assets/proactive_results.jpg" alt="Proactive Response Results">
+            </div>
+        </div>
+
+        <!-- Online VideoQA Results -->
+        <div class="experiment-block">
+            <h3>Online VideoQA Results</h3>
+            <p>While optimized for proactive responses, <strong>Em-Garde</strong> maintains strong online video question-answering abilities, performing on par with or better than state-of-the-art models on real-time video understanding and backward tracing tasks.</p>
+            <div class="experiment-charts">
+                <img src="assets/online_vqa_results.jpg" alt="Online VideoQA Results">
+            </div>
+        </div>
+
+        <!-- Efficiency Results -->
+        <div class="experiment-block">
+            <h3>Efficiency</h3>
+            <p>By decoupling heavy semantic reasoning from the streaming loop, <strong>Em-Garde</strong> achieves efficient real-time streaming inference. The lightweight <span class="clr-match"><strong>LPMM</strong></span> maintains constant per-frame latency even on long videos, while delivering the highest throughput-accuracy trade-off among all compared methods.</p>
+            <div class="experiment-charts-row">
+                <img src="assets/efficiency.jpg" alt="Efficiency: throughput vs. accuracy">
+                <img src="assets/efficiency_long.jpg" alt="Efficiency: streaming inference time over video length">
+            </div>
+        </div>
     </div>
 </section>
 
