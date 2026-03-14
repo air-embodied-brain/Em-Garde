@@ -1,256 +1,288 @@
-body {
+/* ── Base ── */
+* {
     margin: 0;
-    font-family: "Inter", sans-serif;
-    scroll-behavior: smooth;
-    background-color: #f5f5f5;
-    color: #222;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Hero Section */
-.hero {
-    height: 100vh;
-    background: linear-gradient(135deg, #0055a5, #00aaff);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+body {
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    color: #111;
+    background: #fff;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+section {
+    padding: 72px 24px;
+}
+
+.container {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
     text-align: center;
-    padding: 0 20px;
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+}
+
+/* ── Hero ── */
+.hero {
+    padding: 120px 24px 80px;
+    text-align: center;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    max-width: 780px;
+    margin: 0 auto 16px;
 }
 
-.hero p {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
+.hero .authors {
+    font-size: 1.05rem;
+    color: #555;
+    margin-bottom: 28px;
 }
 
-.buttons .btn {
-    display: inline-block;
-    margin: 5px 10px;
-    padding: 12px 25px;
-    background-color: white;
-    color: #0055a5;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
+.hero .authors sup {
+    font-size: 0.7em;
+    margin: 0 1px;
 }
 
-.buttons .btn:hover {
-    background-color: #e0f7ff;
+.hero .affiliations {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 32px;
 }
 
-/* TL;DR Section */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    border: 1.5px solid #111;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn:hover {
+    background: #111;
+    color: #fff;
+}
+
+.btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* ── TL;DR ── */
 .tldr-section {
-    padding: 60px 20px;
-    background-color: #00aaff33;
-    text-align: center;
-}
-
-.tldr-section h2 {
-    font-size: 2rem;
-    margin-bottom: 40px;
+    background: #fafafa;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .tldr-cards {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 24px;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .tldr-card {
-    background: white;
-    border-left: 6px solid #0055a5;
-    padding: 20px;
-    width: 250px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.tldr-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    flex: 1 1 240px;
+    max-width: 280px;
+    padding: 28px 24px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
 }
 
 .tldr-card h3 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    color: #0055a5;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    margin-bottom: 10px;
 }
 
-/* Abstract Section */
-.abstract-section {
-    padding: 60px 20px;
-    background-color: #ffffff;
-    max-width: 800px;
-    margin: auto;
-    text-align: left;
+.tldr-card p {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.6;
 }
 
-.abstract-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2rem;
-}
-
-.abstract-section p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-/* Video Section */
+/* ── Video Demo ── */
 .video-section {
-    padding: 60px 20px;
+    background: #fff;
     text-align: center;
-    background-color: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .video-section video {
-    max-width: 80%;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
-
-/* Paper Sections */
-.paper-section-container {
-    padding: 60px 20px;
-    background-color: #f0f4f8;
-    text-align: center;
-}
-
-.paper-section-container h2 {
-    margin-bottom: 40px;
-    font-size: 2rem;
-}
-
-.paper-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.paper-card {
-    background-color: white;
-    padding: 20px;
-    width: 300px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.paper-card h3 {
-    margin-top: 0;
-    font-size: 1.2rem;
-}
-
-.paper-card iframe {
+    max-width: 720px;
     width: 100%;
-    height: 200px;
-    border: none;
-    border-radius: 8px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
 }
 
-/* Footer */
-footer {
-    padding: 20px;
-    text-align: center;
-    background-color: #222;
-    color: white;
+/* ── Abstract ── */
+.abstract-section {
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
 }
 
-/* Method Section */
+.abstract-section .container p {
+    font-size: 1.02rem;
+    color: #333;
+    text-align: justify;
+    line-height: 1.85;
+}
+
+/* ── Method ── */
 .method-section {
-    padding: 60px 20px;
-    background-color: #f0f4f8;
-    text-align: center;
-}
-
-.method-section h2 {
-    font-size: 2rem;
-    margin-bottom: 40px;
+    background: #fafafa;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .method-cards {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
+    flex-direction: column;
+    gap: 48px;
+    max-width: 820px;
+    margin: 0 auto;
 }
 
 .method-card {
-    background-color: white;
-    width: 320px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding: 20px;
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.method-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .method-card img {
     width: 100%;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    max-width: 760px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 16px;
 }
 
-/* Experiment Section */
+.method-card .caption {
+    font-size: 0.92rem;
+    color: #555;
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* ── Experiments ── */
 .experiment-section {
-    padding: 60px 20px;
-    background-color: #ffffff;
-    max-width: 900px;
-    margin: auto;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
 }
 
-.experiment-section h2 {
+.experiment-placeholder {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
+    padding: 48px 0;
+    color: #bbb;
+    font-size: 1rem;
+    font-style: italic;
 }
 
-.experiment-section table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.experiment-section th, .experiment-section td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
-}
-
-.experiment-section th {
-    background-color: #0055a5;
-    color: white;
-    font-weight: bold;
-}
-
-/* Citation Section */
+/* ── Citation ── */
 .citation-section {
-    padding: 40px 20px;
-    background-color: #f0f4f8;
+    background: #fafafa;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.citation-block {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px 24px;
+    font-family: "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: #444;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+    position: relative;
+}
+
+.citation-block .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: #666;
+    transition: background 0.2s;
+}
+
+.citation-block .copy-btn:hover {
+    background: #e5e5e5;
+}
+
+/* ── Footer ── */
+footer {
+    padding: 32px 24px;
     text-align: center;
+    font-size: 0.85rem;
+    color: #aaa;
+    background: #fff;
 }
 
-.citation-section h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .hero h1 {
+        font-size: 1.6rem;
+    }
 
-.citation-section p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    .hero .authors {
+        font-size: 0.92rem;
+    }
+
+    section {
+        padding: 48px 16px;
+    }
+
+    .tldr-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tldr-card {
+        max-width: 100%;
+    }
 }
