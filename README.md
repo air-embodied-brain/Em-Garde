@@ -2,6 +2,8 @@
 
 ![Figure](assets/scheme.jpg)
 
+Visit our website at [air-embodied-brain.github.io/Em-Garde](https://air-embodied-brain.github.io/Em-Garde/)
+
 ## Installation
 Basic environment:
 
