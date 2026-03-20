@@ -204,7 +204,7 @@ def ffmpeg_once(
     os.makedirs(os.path.dirname(dst_path), exist_ok=True)
 
     command = [
-        './ffmpeg/ffmpeg',
+        'ffmpeg',
         '-y',
     ]
 

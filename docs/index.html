@@ -25,7 +25,7 @@
         <sup>5</sup>Microsoft Research Asia
     </p>
     <div class="buttons">
-        <a class="btn" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">
+        <a class="btn" href="http://arxiv.org/abs/2603.19054" target="_blank">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zm-3 9h4v2h-4v-2zm0 4h4v2h-4v-2zm-2-4h1v2H8v-2zm0 4h1v2H8v-2z"/></svg>
             Paper
         </a>
@@ -43,9 +43,9 @@
 <section class="tldr-section">
     <h2>TL;DR</h2>
     <ul class="tldr-list">
-        <li><span class="tldr-label">Problem</span> Proactive streaming video understanding requires per-frame triggering decisions, facing an efficiency-accuracy dilemma.</li>
-        <li><span class="tldr-label">Solution</span> <strong>Em-Garde</strong> decouples semantic understanding from streaming perception via a <span class="clr-propose">propose</span>-then-<span class="clr-match">match</span> framework.</li>
-        <li><span class="tldr-label">Impact</span> Fast, accurate proactive interactions for live video analytics, surveillance, and embodied AI.</li>
+        <li><span class="tldr-label">Problem</span> We tackle <strong>Proactive Streaming Video Understanding</strong>, where the model needs to keep monitoring the video and answer user queries at proper time.</li>
+        <li><span class="tldr-label">Solution</span> <strong>Em-Garde</strong> introduces a two-stage system that separates heavy semantic understanding and lightweight streaming perception</li>
+        <li><span class="tldr-label">Impact</span> We achieve fast, accurate proactive interactions for live video analytics, surveillance, and embodied AI.</li>
     </ul>
 </section>
 
@@ -95,7 +95,7 @@
         <!-- Proactive Results -->
         <div class="experiment-block">
             <h3>Proactive Response Results</h3>
-            <p><strong>Em-Garde</strong> achieves superior proactive response abilities across all three benchmarks, outperforming prior streaming VideoLLMs by a significant margin. The <span class="clr-propose">propose</span>-then-<span class="clr-match">match</span> design enables accurate, timely triggering without per-frame LLM inference.</p>
+            <p><strong>Em-Garde</strong> demonstrates superior proactive response abilities across different benchmarks, outperforming prior streaming VideoLLMs by a significant margin.</p>
             <div class="experiment-charts">
                 <img src="assets/proactive_results.jpg" alt="Proactive Response Results">
             </div>
@@ -104,7 +104,7 @@
         <!-- Online VideoQA Results -->
         <div class="experiment-block">
             <h3>Online VideoQA Results</h3>
-            <p>While optimized for proactive responses, <strong>Em-Garde</strong> maintains strong online video question-answering abilities, performing on par with or better than state-of-the-art models on real-time video understanding and backward tracing tasks.</p>
+            <p>While optimized for proactive responses, <strong>Em-Garde</strong> maintains strong online video question-answering abilities, performing on par with or better than state-of-the-art models.</p>
             <div class="experiment-charts">
                 <img src="assets/online_vqa_results.jpg" alt="Online VideoQA Results">
             </div>
@@ -127,12 +127,15 @@
     <h2>Citation</h2>
     <div class="citation-block">
         <button class="copy-btn" onclick="copyBib(this)">Copy</button>
-@article{emgarde2026,
-  title={Em-Garde: A Propose-Match Framework for Proactive Streaming Video Understanding},
-  author={Author 1 and Author 2 and Author 3},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2026}
-}</div>
+        @misc{zheng2026emgarde,
+            title={Em-Garde: A Propose-Match Framework for Proactive Streaming Video Understanding}, 
+            author={Yikai Zheng and Xin Ding and Yifan Yang and Shiqi Jiang and Hao Wu and Qianxi Zhang and Weijun Wang and Ting Cao and Yunxin Liu},
+            year={2026},
+            eprint={2603.19054},
+            archivePrefix={arXiv},
+            primaryClass={cs.CV},
+            url={https://arxiv.org/abs/2603.19054}, 
+      }</div>
 </section>
 
 <footer>
