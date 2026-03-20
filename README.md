@@ -1,5 +1,7 @@
 ## The Implementation of *Em-Garde: A proposal-match framework for proactive streaming video understanding*
 
+[![arXiv](https://img.shields.io/badge/arXiv-2603.19054-b31b1b.svg)](https://arxiv.org/abs/2603.19054)
+
 ![Figure](assets/scheme.jpg)
 
 ## Installation
@@ -68,3 +70,17 @@ This codebase includes adapted code from the following public projects:
 
 We thank the original authors for making their code publicly available.
 
+## Cite
+
+If you find our project useful, please cite:
+
+```bibtex
+@misc{zheng2026emgarde,
+title={Em-Garde: A Propose-Match Framework for Proactive Streaming Video Understanding}, 
+author={Yikai Zheng and Xin Ding and Yifan Yang and Shiqi Jiang and Hao Wu and Qianxi Zhang and Weijun Wang and Ting Cao and Yunxin Liu},
+year={2026},
+eprint={2603.19054},
+archivePrefix={arXiv},
+primaryClass={cs.CV},
+url={https://arxiv.org/abs/2603.19054}, 
+}
