@@ -1,3 +1,22 @@
+"""
+本demo用于在ARM架构上运行Em-Garde视频理解模型，使用以下替代方案：
+
+1. 用FFmpeg代替decord：创建FFmpegVideoReader类，实现与decord.VideoReader兼容的API
+   - 修改文件：src/video_utils.py, vlm2vec/data/eval_dataset/mvbench_dataset.py, vlm2vec/model/vlm_backbone/qwen2_vl/qwen_vl_utils.py
+   - 实现方法：__init__, __len__, __getitem__, get_avg_fps, get_frame_timestamp, get_frame_index, get_batch
+   - 注意：FFmpegVideoReader.get_batch() 直接返回 numpy array，无需调用 .asnumpy()
+   - 修复：src/video_utils.py 中移除了 .asnumpy() 调用并添加了类型检查
+
+2. 用OpenCV代替torchvision.io.write_video：创建自定义write_video函数
+   - 修改文件：vlm2vec/data/utils/video_transforms.py, vlm2vec/data/utils/vision_utils.py, train/rl/data/data_process.py, src/model.py
+   - 实现方法：使用cv2.VideoWriter写入视频，支持mp4(h264)和avi格式
+
+3. 检测器模型本地加载：修改配置文件使用本地模型路径
+   - 修改文件：configs/detector/ops_mm_v1_2B.yaml
+   - 配置：将 model_name 从 "OpenSearch-AI/Ops-MM-embedding-v1-2B" 改为本地路径
+   - 在本文件中，需要指定Em-Garde-7B的模型路径
+   - 修改proposer-model-name和responder-model-name为本地路径
+"""
 import json
 import tqdm
 from src.model_args import ModelArguments
@@ -33,15 +52,17 @@ def load_requests(yaml_path: str) -> VideoLLMRequest:
     return data
 
 def run_streaming(video_path, output_path, plot_path, query_list, start_time=2, end_time=99999, model_args=None):
-    model = StreamingModel(model_args, device='cuda')
+    # 使用CPU设备（ARM架构可能没有CUDA）
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    print(f"Using device: {device}")
+    
+    model = StreamingModel(model_args, device=device)
     
     model.init_video(video_path, start_time = max(0, start_time-model_args.history_length), end_time = end_time)
     curr_t = start_time
     interval = 1.0 / model_args.streaming_fps
     
     queries_in_progress = []
-    
-    # efficiency_log_path = os.path.join(output_path, "efficiency_log.txt")
     
     while curr_t <= end_time:
         time1 = time.time()
@@ -59,12 +80,9 @@ def run_streaming(video_path, output_path, plot_path, query_list, start_time=2, 
             break
         else:
             triggered_queries, similarities, processing_time = res
-            # with open(efficiency_log_path, 'a') as f:
-            #     f.write(f"Time {curr_t:.2f}s: Processing time {processing_time:.4f}s\n")
             for i, q in enumerate(queries_in_progress):
                 similarities = torch.round(similarities[i] * 1000) / 1000.0
                 similarities = similarities.cpu().tolist()
-                # q['similarities'].append({"curr_time": curr_t, "similarities": similarities})
                 if len(triggered_queries)>0:
                     q['detections'].append(curr_t)
                     if triggered_queries[0]["response"]:
@@ -72,14 +90,12 @@ def run_streaming(video_path, output_path, plot_path, query_list, start_time=2, 
                             "time": curr_t,
                             "response": triggered_queries[0]["response"],
                         })
-                    
+            
         if abs(round(curr_t)-curr_t) < 1e-2 and int(round(curr_t-start_time)) % 30 == 0:
             for i, q in enumerate(queries_in_progress):
                 proposals = model.update_query(curr_t, model_args.history_length, model_args.history_fps, q['query'])
-                # q['proposals'] = proposals
                 print(f"At time {curr_t:.2f}s, updated proposals for query '{q['query']}': {proposals}")
                 
-        # cuda_mem(f"Time {curr_t:.2f}s")
         curr_t += interval
     
     for i, q in enumerate(queries_in_progress):
@@ -87,20 +103,13 @@ def run_streaming(video_path, output_path, plot_path, query_list, start_time=2, 
         output_path = os.path.join(output_path, f"{video_name}_query_{i}.json")
         with open(output_path, 'w') as f:
             json.dump(q, f, indent=4)
-        # plot_path = os.path.join(plot_path, f"{video_name}_query_{i}.png")
-        # plot(q['similarities'], q['proposals'], q['detections'], plot_path)
-        
-    #     gt_response_times = q['ground_truth_times']
-    #     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        # plot(q['similarities'], q['proposals'], gt_response_times, q['detections'], output_path)
-                
                 
 def plot(similarities, proposals, detections, output_path):
     
     seen = defaultdict(set)
     deduped = []
     for d in proposals:
-        (k, v), = d.items()   # assumes exactly one key per dict
+        (k, v), = d.items()
         if v not in seen[k]:
             seen[k].add(v)
             deduped.append(d)
@@ -111,7 +120,7 @@ def plot(similarities, proposals, detections, output_path):
     plt.figure(figsize=(width, 6))
     x = [s["curr_time"] for s in similarities]
     fig_width = len(similarities) / 10
-    if isinstance(similarities[0]["similarities"][0],float):       # vlm style detection
+    if isinstance(similarities[0]["similarities"][0],float):
         y = [s["similarities"][0] for s in similarities]
     else:
         surges = []
@@ -134,19 +143,6 @@ def plot(similarities, proposals, detections, output_path):
         plt.plot(x, surges, linestyle="solid")
         plt.xlabel("Video Time (s)")
         plt.ylabel("Temporal surge signal")
-    # for i in range(len(proposals)):
-    #     proposal = proposals[i]
-    #     sim = []
-    #     for s in similarities:
-    #         # print(s["similarities"])
-    #         sim.append(s["similarities"][0][i])
-    #     curves.append(sim)
-    #     linestyle = "solid" if "positive" in proposal else "dashed"
-    #     label = proposal.get("positive", proposal.get("negative", f"Proposal {i}"))
-    #     plt.plot(x, sim, linestyle=linestyle, label=label)
-        
-    # for gt_time in gt_response_times:
-    #     plt.axvline(gt_time, color="black", linestyle="--")
     
     for det_time in detections:
         plt.axvline(det_time, color="red", linestyle=":")
@@ -155,19 +151,22 @@ def plot(similarities, proposals, detections, output_path):
     plt.savefig(output_path, bbox_inches="tight")
  
 def cuda_mem(tag):
-    torch.cuda.synchronize()
-    alloc = torch.cuda.memory_allocated() / 1024**2
-    reserv = torch.cuda.memory_reserved() / 1024**2
-    max_alloc = torch.cuda.max_memory_allocated() / 1024**2
-    print(
-        f"[{tag:>25}] "
-        f"allocated={alloc:8.1f}MB | "
-        f"reserved={reserv:8.1f}MB | "
-        f"max_alloc={max_alloc:8.1f}MB"
-    ) 
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
+        alloc = torch.cuda.memory_allocated() / 1024**2
+        reserv = torch.cuda.memory_reserved() / 1024**2
+        max_alloc = torch.cuda.max_memory_allocated() / 1024**2
+        print(
+            f"[{tag:>25}] "
+            f"allocated={alloc:8.1f}MB | "
+            f"reserved={reserv:8.1f}MB | "
+            f"max_alloc={max_alloc:8.1f}MB"
+        ) 
+    else:
+        print(f"[{tag:>25}] CUDA not available")
     
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Em-Garde ARM Demo - Video Understanding on ARM Architecture")
     
     parser.add_argument("--yaml-path", type=str, default="configs/demo/demo_ego4d.yaml", help="Path to the YAML file containing evaluation requests")
     parser.add_argument("--output-path", type=str, default="demo/", help="Path to save evaluation results")
@@ -180,6 +179,13 @@ if __name__ == "__main__":
     parser.add_argument("--history-length", type=int, default=5, help="History length for proposal processing")
     parser.add_argument("--history-fps", type=int, default=1, help="History FPS for proposal processing")
     args = parser.parse_args()
+    
+    print("=" * 60)
+    print("Em-Garde ARM Demo")
+    print("=" * 60)
+    print(f"Using FFmpeg for video reading (replaces decord)")
+    print(f"Using OpenCV for video writing (replaces torchvision.io.write_video)")
+    print("=" * 60)
     
     request = load_requests(args.yaml_path)
     
@@ -195,4 +201,4 @@ if __name__ == "__main__":
     
     os.makedirs(args.output_path, exist_ok=True)
     
-    run_streaming(request['video_path'], args.output_path, args.plot_path, request['queries'], request.get('start_time', 2), request.get('end_time', 99999), model_args) 
+    run_streaming(request['video_path'], args.output_path, args.plot_path, request['queries'], request.get('start_time', 2), request.get('end_time', 99999), model_args)

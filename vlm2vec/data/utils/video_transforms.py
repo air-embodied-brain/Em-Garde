@@ -6,7 +6,31 @@ import requests
 import torchvision
 from PIL import Image
 from torchvision.datasets.folder import IMG_EXTENSIONS, pil_loader
-from torchvision.io import write_video
+import cv2
+import numpy as np
+
+def write_video(save_path, video_tensor, fps=30, video_codec="h264"):
+    """
+    使用 OpenCV 写入视频（替代 torchvision.io.write_video）
+    video_tensor: [T, H, W, C] 格式的张量，uint8 类型
+    """
+    video_np = video_tensor.cpu().numpy()
+    T, H, W, C = video_np.shape
+    
+    if C == 3:
+        video_np = cv2.cvtColor(video_np.reshape(-1, H, W, C), cv2.COLOR_RGB2BGR).reshape(T, H, W, C)
+    
+    if video_codec == "h264" or save_path.endswith(".mp4"):
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    elif save_path.endswith(".avi"):
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    else:
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    
+    out = cv2.VideoWriter(save_path, fourcc, fps, (W, H))
+    for i in range(T):
+        out.write(video_np[i])
+    out.release()
 
 
 VID_EXTENSIONS = (".mp4", ".avi", ".mov", ".mkv")
@@ -717,7 +741,7 @@ if __name__ == "__main__":
     print(select_vframes_trans_int.dtype)
     print(select_vframes_trans_int.permute(0, 2, 3, 1).shape)
 
-    io.write_video("./test.avi", select_vframes_trans_int.permute(0, 2, 3, 1), fps=8)
+    write_video("./test.avi", select_vframes_trans_int.permute(0, 2, 3, 1), fps=8)
 
     for i in range(target_video_len):
         save_image(

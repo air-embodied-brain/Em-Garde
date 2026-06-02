@@ -31,7 +31,13 @@ conda install -c conda-forge ffmpeg
 run demo:
 
 ```
-python -m demo --yaml-path=configs/demo/demo_solution
+python -m demo --yaml-path=configs/demo/demo_solution.yaml
+```
+
+run arm_demo:
+
+```
+python -m arm_demo --yaml-path=configs/demo/demo_solution.yaml
 ```
 
 The video and query can be customized in `configs/demo`. Refer to `configs/demo/demo_solution.yaml`. The triggering results will be stored under `demo/`.

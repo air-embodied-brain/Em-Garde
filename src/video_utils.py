@@ -1,4 +1,3 @@
-import decord
 import os
 import numpy as np
 import torch
@@ -6,12 +5,13 @@ from qwen_vl_utils import smart_resize
 from torchvision import io, transforms
 from torchvision.transforms import InterpolationMode
 from typing import Union
+from src.ffmpeg_video_reader import FFmpegVideoReader as VideoReader
 
 IMAGE_FACTOR = 28
 
 def read_video_decord(video_path, start_time, end_time, fps, max_pixels=560*560, min_pixels=84*84, allow_end_truncation=False):
     """
-    Reads a video using decord with specified start time, end time, and fps.
+    Reads a video using FFmpeg with specified start time, end time, and fps.
 
     Args:
         video_path (str): Path to the video file.
@@ -25,7 +25,7 @@ def read_video_decord(video_path, start_time, end_time, fps, max_pixels=560*560,
             - frames (numpy.ndarray): Extracted frames as a NumPy array.
     """
     # Initialize the video reader
-    vr = decord.VideoReader(video_path)
+    vr = VideoReader(video_path)
     video_fps = vr.get_avg_fps()
     total_frames = len(vr)
     duration = total_frames / video_fps
@@ -45,8 +45,12 @@ def read_video_decord(video_path, start_time, end_time, fps, max_pixels=560*560,
     frame_indices = np.arange(start_frame, end_frame, video_fps / fps).astype(int)
 
     # Read frames and calculate timestamps
-    video = vr.get_batch(frame_indices).asnumpy()
-    video = torch.tensor(video).permute(0, 3, 1, 2)
+    video = vr.get_batch(frame_indices)
+    # FFmpegVideoReader returns numpy array directly, no need for .asnumpy()
+    if not isinstance(video, torch.Tensor):
+        video = torch.tensor(video).permute(0, 3, 1, 2)
+    else:
+        video = video.permute(0, 3, 1, 2)
     
     nframes, _, height, width = video.shape
     frame_timestamps = frame_indices / video_fps
@@ -61,7 +65,7 @@ def read_video_decord(video_path, start_time, end_time, fps, max_pixels=560*560,
     return frame_timestamps, video
 
 def read_until_end(video_path, history_length, fps, max_pixels=560*560, min_pixels=84*84):
-    vr = decord.VideoReader(video_path)
+    vr = VideoReader(video_path)
     video_fps = vr.get_avg_fps()
     total_frames = len(vr)
     duration = total_frames / video_fps
@@ -89,7 +93,7 @@ def read_video_decord_strict(
     allow_end_truncation=False,
 ):
 
-    vr = decord.VideoReader(video_path)
+    vr = VideoReader(video_path)
     duration = vr.get_frame_timestamp(len(vr) - 1)[1]
 
     if allow_end_truncation:

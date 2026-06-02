@@ -14,7 +14,7 @@ import time
 
 
 import torch
-import torchvision.io as tvio
+import cv2
 from datasets import Dataset
 from fractions import Fraction
 
@@ -34,17 +34,17 @@ def save_video_tensor(video: torch.Tensor, path: str, fps: float):
     # torchvision expects [T, H, W, C]
     video = video.permute(0, 2, 3, 1)
 
-    tvio.write_video(
-        path,
-        video,
-        fps=fps,
-        video_codec="libx264",
-        options={
-            "crf": "23",
-            "preset": "ultrafast",
-            "pix_fmt": "yuv420p",
-        }
-    )
+    video_np = video.cpu().numpy()
+    T, H, W, C = video_np.shape
+    
+    if C == 3:
+        video_np = cv2.cvtColor(video_np.reshape(-1, H, W, C), cv2.COLOR_RGB2BGR).reshape(T, H, W, C)
+    
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(path, fourcc, float(fps), (W, H))
+    for i in range(T):
+        out.write(video_np[i])
+    out.release()
     print(f"[PID {os.getpid()}] done {path}", flush=True)
     
 def is_valid_video(v):

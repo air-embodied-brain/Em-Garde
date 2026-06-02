@@ -1,0 +1,35 @@
+{
+    "query": "What are the steps to make the solution?",
+    "start_time": 10,
+    "detections": [
+        11.599999999999994,
+        19.599999999999966,
+        33.39999999999994,
+        39.200000000000024,
+        44.4000000000001
+    ],
+    "ground_truth_times": [
+        14,
+        35,
+        40,
+        48
+    ],
+    "checked_detections": [
+        {
+            "time": 11.599999999999994,
+            "response": "Pour the clear liquid into the clear container."
+        },
+        {
+            "time": 33.39999999999994,
+            "response": "A hand uses a clear pipette to add a clear liquid into a clear container."
+        },
+        {
+            "time": 39.200000000000024,
+            "response": "Pour the clear liquid into the clear container while stirring with a clear plastic spoon."
+        },
+        {
+            "time": 44.4000000000001,
+            "response": "Add the clear liquid into the clear container while stirring with the clear plastic spoon."
+        }
+    ]
+}

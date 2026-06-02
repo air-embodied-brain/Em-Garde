@@ -301,9 +301,15 @@ def save_video(video_tensor, path, fps=2):
     # Convert from [T, C, H, W] → [T, H, W, C]
     video_tensor = video_tensor.permute(0, 2, 3, 1)
 
-    torchvision.io.write_video(
-        path,
-        video_tensor,
-        fps=fps,
-        video_codec="libx264"
-    )
+    import cv2
+    video_np = video_tensor.cpu().numpy()
+    T, H, W, C = video_np.shape
+    
+    if C == 3:
+        video_np = cv2.cvtColor(video_np.reshape(-1, H, W, C), cv2.COLOR_RGB2BGR).reshape(T, H, W, C)
+    
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(path, fourcc, fps, (W, H))
+    for i in range(T):
+        out.write(video_np[i])
+    out.release()

@@ -2,14 +2,19 @@
     "query": "Tell me when my steak is eaten by my cat!",
     "start_time": 5,
     "detections": [
-        21.599999999999955,
+        8.6,
+        21.999999999999954,
         38.80000000000001
     ],
     "ground_truth_times": [],
     "checked_detections": [
         {
-            "time": 21.599999999999955,
-            "response": "The orange tabby cat uses its paws to lift a piece of steak from a black pan and then eats it while sitting at a wooden table."
+            "time": 8.6,
+            "response": "The cat takes a bite of the steak from a pan on the table."
+        },
+        {
+            "time": 21.999999999999954,
+            "response": "The cat uses its paws to lift a piece of steak from a pan and then eats it."
         },
         {
             "time": 38.80000000000001,

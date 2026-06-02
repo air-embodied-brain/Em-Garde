@@ -218,15 +218,14 @@ def _read_video_torchvision(
 
 
 def is_decord_available() -> bool:
-    import importlib.util
+    """Always return True since we use FFmpeg replacement"""
+    return True
 
-    return importlib.util.find_spec("decord") is not None
 
-
-def _read_video_decord(
+def _read_video_ffmpeg(
     ele: dict,
 ) -> (torch.Tensor, float):
-    """read video using decord.VideoReader
+    """read video using FFmpegVideoReader (decord replacement)
 
     Args:
         ele (dict): a dict contains the configuration of video.
@@ -237,25 +236,32 @@ def _read_video_decord(
     Returns:
         torch.Tensor: the video tensor with shape (T, C, H, W).
     """
-    import decord
+    import sys
+    import os
+    # Add project root to path to import ffmpeg_video_reader
+    project_root = os.path.join(os.path.dirname(__file__), '..', '..', '..', '..')
+    if project_root not in sys.path:
+        sys.path.insert(0, project_root)
+    from src.ffmpeg_video_reader import FFmpegVideoReader as VideoReader
+    
     video_path = ele["video"]
     st = time.time()
-    vr = decord.VideoReader(video_path)
+    vr = VideoReader(video_path)
     # TODO: support start_pts and end_pts
     if 'video_start' in ele or 'video_end' in ele:
-        raise NotImplementedError("not support start_pts and end_pts in decord for now.")
+        raise NotImplementedError("not support start_pts and end_pts in FFmpeg for now.")
     total_frames, video_fps = len(vr), vr.get_avg_fps()
-    logger.info(f"decord:  {video_path=}, {total_frames=}, {video_fps=}, time={time.time() - st:.3f}s")
+    logger.info(f"ffmpeg:  {video_path=}, {total_frames=}, {video_fps=}, time={time.time() - st:.3f}s")
     nframes = smart_nframes(ele, total_frames=total_frames, video_fps=video_fps)
     idx = torch.linspace(0, total_frames - 1, nframes).round().long().tolist()
-    video = vr.get_batch(idx).asnumpy()
+    video = vr.get_batch(idx)
     video = torch.tensor(video).permute(0, 3, 1, 2)  # Convert to TCHW format
     sample_fps = nframes / max(total_frames, 1e-6) * video_fps
     return video, sample_fps
 
 
 VIDEO_READER_BACKENDS = {
-    "decord": _read_video_decord,
+    "decord": _read_video_ffmpeg,
     "torchvision": _read_video_torchvision,
 }
 

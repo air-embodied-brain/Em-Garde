@@ -13,9 +13,11 @@ from vlm2vec.model.processor import VLM_VIDEO_TOKENS
 import os
 from PIL import Image
 import numpy as np
-from decord import VideoReader, cpu
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+from src.ffmpeg_video_reader import FFmpegVideoReader as VideoReader, cpu
 import cv2
-from decord import VideoReader, cpu
 from torchvision.transforms.functional import InterpolationMode
 
 def process_query(query, prompt, video_token=''):

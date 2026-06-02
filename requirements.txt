@@ -41,7 +41,7 @@ cycler==0.12.1
 DataProperty==1.0.1
 datasets==2.16.1
 debugpy==1.8.1
-decord==0.6.0
+# decord==0.6.0
 deepspeed==0.12.2
 defusedxml==0.7.1
 Deprecated==1.2.14
