@@ -1,6 +1,7 @@
-## The Implementation of *Em-Garde: A proposal-match framework for proactive streaming video understanding*
+## [ECCV 2026] The Implementation of *Em-Garde: A proposal-match framework for proactive streaming video understanding*
 
 [![arXiv](https://img.shields.io/badge/arXiv-2603.19054-b31b1b.svg)](https://arxiv.org/abs/2603.19054)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-FFD21E)](https://huggingface.co/fredzheng/Em-Garde-7B)
 
 ![Figure](assets/scheme.jpg)
 
