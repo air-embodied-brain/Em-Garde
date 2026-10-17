@@ -70,6 +70,62 @@ SFT annotations are in `train/sft/llm_data_generation/data/`. The conversion hel
 
 RL input is `train/rl/data/filtered_2.json`. Run `train/rl/data/data_process.py` from the repository root with its `--input-json`, `--output-parquet`, `--output-jsonl`, and `--video-root` arguments. It creates 10-second history clips at 1 FPS and target clips at 5 FPS. Keep generated videos and Parquet files outside Git; publish manifests and checksums with any separate data release.
 
+The complete currently available SFT and RL bundle is hosted at [fredzheng/em_garde_data](https://huggingface.co/datasets/fredzheng/em_garde_data). The repository also contains the same bundle under `data_bundle/` when the data release is checked out locally. The bundle is approximately 2.3 GB and contains processed clips; source COIN, Ego4D, and Behavior videos are not redistributed.
+
+```text
+data_bundle/
+├── README.md
+├── sft/
+│   ├── sft_data_qwen.jsonl
+│   └── videos/*.mp4
+└── rl/
+    ├── rl_format2.parquet
+    ├── filtered_2.json
+    └── videos/<sample_id>/{query_*.mp4,tgt_*.mp4}
+```
+
+### SFT format
+
+`data_bundle/sft/sft_data_qwen.jsonl` is JSON Lines. Each non-empty line is one JSON object:
+
+```json
+{
+  "video": "videos/example_0.mp4",
+  "conversations": [
+    {"from": "human", "value": "<video>\n... Query: ..."},
+    {"from": "gpt", "value": "[{\"positive\": \"...\"}, {\"negative\": \"...\"}]"}
+  ]
+}
+```
+
+The `video` path is relative to `data_bundle/sft/`. The human message must contain the `<video>` placeholder and the visual-clue instruction. The GPT value is a JSON-encoded list of clue objects; each object has either a `positive` or `negative` string. Use this file directly with the Qwen-VL fine-tuning data loader. Do not rename clips without updating every `video` field.
+
+The source SFT annotations are in `train/sft/llm_data_generation/data/`:
+`data_behavior.jsonl`, `data_coin.json`, and `data_ego4d.jsonl`.
+
+### RL format
+
+`data_bundle/rl/rl_format2.parquet` is the production annotation consumed by the Em-Garde VERL data-preparation script. Its logical records contain:
+
+- `problem`: prompt text containing `<video>` and the clue-output format.
+- `answer`: the reference answer/proposals.
+- `query_video`: an object containing a query/history video path.
+- `target_videos`: an object or list containing target video path(s).
+- `positive_timestamps`: timestamps for relevant target frames.
+- `events`: optional event metadata with `timestamp_indices`.
+
+Processed RL videos are stored under `data_bundle/rl/videos/<sample_id>/`. Keep sample IDs, directory names, and `query_*.mp4`/`tgt_*.mp4` filenames unchanged. 
+
+`data_bundle/rl/filtered_2.json` is the source annotation used to regenerate clips. Its `video_path` values use `${DATA_ROOT}/COIN`, `${DATA_ROOT}/Ego4D`, and `${DATA_ROOT}/Behavior` placeholders. To regenerate clips, obtain the official source datasets, preserve their expected filenames/layouts, and run `train/rl/data/data_process.py`.
+
+### Path and redistribution rules
+
+- Treat all paths in annotations as portable paths or placeholders; never depend on `/data/zhengyikai/...` or another machine-specific prefix.
+- Mount the bundle at a stable root and resolve SFT paths from `sft/` and RL paths from `rl/`.
+- Keep generated videos and Parquet files out of Git history; use the Hugging Face dataset for large artifacts.
+- Source videos are governed by the licenses and access terms of COIN, Ego4D, and Behavior. Do not redistribute source videos unless their terms allow it.
+- Record the dataset revision and any path-rewriting or train/test split seed used for an experiment.
+
 ## Acknowledgements
 
 This codebase includes adapted code from the following public projects:
