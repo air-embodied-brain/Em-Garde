@@ -11,6 +11,7 @@ import multiprocessing as mp
 from datasets import Dataset
 import traceback
 import time
+import argparse
 
 
 import torch
@@ -264,10 +265,11 @@ def process_data(
 #             f_out.write(json.dumps(item, indent=4, ensure_ascii=False) + "\n")
     
 if __name__ == "__main__":
-    input_json_path = "train/rl/data/filtered.json"
-    output_parquet_path = "/data/Em_garde/rl_format.parquet"
-    output_json_path = "train/rl/data/rl.jsonl"
-    video_root_dir = "/data/Em_garde/processed_videos2/"
-    
-    process_data(input_json_path, output_parquet_path, output_json_path, video_root_dir)
-    
+    parser = argparse.ArgumentParser(description="Extract RL clips and write VERL-compatible data.")
+    parser.add_argument("--input-json", default="train/rl/data/filtered_2.json")
+    parser.add_argument("--output-parquet", default="data/rl_format.parquet")
+    parser.add_argument("--output-jsonl", default="train/rl/data/rl_format.jsonl")
+    parser.add_argument("--video-root", default="data/processed_videos")
+    parser.add_argument("--timeout", type=int, default=120)
+    args = parser.parse_args()
+    process_data(args.input_json, args.output_parquet, args.output_jsonl, args.video_root, args.timeout)

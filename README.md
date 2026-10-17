@@ -62,6 +62,14 @@ python -m eval.proactive_video_qa.eval_proactive_video_qa --data-path=/path/to/p
 
 Please follow [ProactiveVideoQA](https://github.com/yellow-binary-tree/ProactiveVideoQA) to compute the PAUC metric after obtaining the results.
 
+## Training data
+
+Annotations and processing scripts for SFT and RL are included. Source videos are not redistributed. Obtain COIN, Ego4D, and Behavior videos from their official sources and arrange them as `$DATA_ROOT/COIN`, `$DATA_ROOT/Ego4D`, and `$DATA_ROOT/Behavior`. Annotation files may contain machine-specific absolute paths and should be rewritten to local paths.
+
+SFT annotations are in `train/sft/llm_data_generation/data/`. The conversion helper is `train/sft/data/convert_to_qwen.py` and creates 15-second, 1 FPS history clips.
+
+RL input is `train/rl/data/filtered_2.json`. Run `train/rl/data/data_process.py` from the repository root with its `--input-json`, `--output-parquet`, `--output-jsonl`, and `--video-root` arguments. It creates 10-second history clips at 1 FPS and target clips at 5 FPS. Keep generated videos and Parquet files outside Git; publish manifests and checksums with any separate data release.
+
 ## Acknowledgements
 
 This codebase includes adapted code from the following public projects:
